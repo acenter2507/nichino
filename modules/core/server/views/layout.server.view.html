@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-strict-di>
+<html lang="en" ng-strict-di ng-controller="AppController">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -13,20 +13,20 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
   <!-- Facebook META -->
-  <meta property="fb:app_id" content="{{facebookAppId}}">
+  <!-- <meta property="fb:app_id" content="{{facebookAppId}}">
   <meta property="og:site_name" content="{{title}}">
   <meta property="og:title" content="{{title}}">
   <meta property="og:description" content="{{description}}">
   <meta property="og:url" content="{{url}}">
   <meta property="og:image" content="{{logo}}">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="website"> -->
 
   <!-- Twitter META -->
-  <meta name="twitter:card" content="summary">
+  <!-- <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="{{twitterUsername}}">
   <meta name="twitter:title" content="{{title}}">
   <meta name="twitter:description" content="{{description}}">
-  <meta name="twitter:image" content="{{logo}}">
+  <meta name="twitter:image" content="{{logo}}"> -->
 
   <!-- Fav Icon -->
   <link href="/{{favicon}}" rel="shortcut icon" type="image/x-icon">
@@ -39,12 +39,21 @@
 </head>
 
 <body class="ng-cloak">
-  <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
-  <section class="content">
-    <section class="container">
-      {{{block "content"}}}
-    </section>
-  </section>
+
+  <!-- HEADER -->
+  <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-default"></header>
+  
+  <!-- CONTENT PAGE -->
+  <div class="app">
+      <section class="content">
+        <!-- <div ng-include="'/modules/core/client/views/breadcrumb.client.view.html'"></div> -->
+        {{{block "content"}}}
+        <!-- Footer -->
+      </section>
+      <!-- Aside Menu -->
+      <div ng-include="'/modules/core/client/views/aside.client.view.html'"></div>
+  </div>
+  <!-- #CONTENT PAGE -->
 
   <noscript>
     <style>
@@ -53,7 +62,7 @@
       }
     </style>
     <div class="alert alert-warning">
-      <strong>This page requires JavaScript.</strong> Please enable it in your browser.
+      <strong>このページがJavascriptを求めています</strong>のでONにしてください！
     </div>
   </noscript>
 
