@@ -28,30 +28,43 @@ var mongoose = require('mongoose'),
 //     (username && usernameRegex.test(username) && config.illegalUsernames.indexOf(username) < 0)
 //   );
 // };
+var validateLocalStrategyEmail = function (email) {
+  return validator.isEmail(email);
+};
 
 /**
  * User Schema
  */
 var UserSchema = new Schema({
-  firstName: { type: String, trim: true, default: '', required: true },
-  lastName: { type: String, trim: true, default: '', required: true },
+  // Private info
+  firstName: { type: String, trim: true, default: '' },
+  lastName: { type: String, trim: true, default: '' },
   displayName: { type: String, trim: true },
+  postNumber: { type: String },
+  address: { type: String, trim: true },
+  // Security info
   email: { type: String, lowercase: true, trim: true, default: '' },
-  username: { type: String, unique: 'ユーさーIDは既存しています！', required: true, lowercase: true, trim: true },
+  username: { type: String, unique: 'ユーさーIDは既存しています！', lowercase: true, trim: true },
+  deviceId: { type: String, unique: 'デバイスが既存しています！'},
   password: { type: String, default: '' },
   salt: { type: String },
+  // System info
   roles: {
     type: [{
       type: String,
       enum: ['user', 'manager', 'admin']
     }],
     default: ['user'],
-    required: true
+    required: true,
+    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
   updated: { type: Date },
   created: { type: Date, default: Date.now },
+  // Manager info
   resetPasswordToken: { type: String },
-  resetPasswordExpires: { type: Date }
+  resetPasswordExpires: { type: Date },
+  // Log
+  logins: [ { type: Date } ]
 });
 UserSchema.plugin(paginate);
 
@@ -154,7 +167,7 @@ function seed(doc, options) {
             user.password = passphrase;
 
             user.save(function (err) {
-              if (err)  return reject(err);
+              if (err) return reject(err);
               return resolve({ message: 'ユーザーID： ' + user.username + ' ・パスワード： ' + passphrase });
             });
           })

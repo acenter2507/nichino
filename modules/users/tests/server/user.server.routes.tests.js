@@ -82,8 +82,6 @@ describe('User CRUD tests', function () {
 
         signupRes.body.username.should.equal(_user.username);
         signupRes.body.email.should.equal(_user.email);
-        // Assert a proper profile image has been set, even if by default
-        signupRes.body.profileImageURL.should.not.be.empty();
         // Assert we have just the default 'user' role
         signupRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
         signupRes.body.roles.indexOf('user').should.equal(0);
@@ -1011,7 +1009,6 @@ describe('User CRUD tests', function () {
             }
 
             userInfoRes.body.should.be.instanceof(Object);
-            userInfoRes.body.profileImageURL.should.be.a.String();
             userInfoRes.body._id.should.be.equal(String(user._id));
 
             return done();
@@ -1080,8 +1077,6 @@ describe('User CRUD tests', function () {
   });
 
   it('should be able to change profile picture and not fail if existing picture file does not exist', function (done) {
-
-    user.profileImageURL = config.uploads.profile.image.dest + 'non-existing.png';
 
     user.save(function (saveErr) {
       // Handle error
