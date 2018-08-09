@@ -81,7 +81,7 @@
   //   });
   // }
 
-  function runConfig(amMoment) {
+  function runConfig() { //amMoment
     // moment.tz.add([
     //   'Asia/Tokyo|JST JDT|-90 -a0|010101010|-QJH0 QL0 1lB0 13X0 1zB0 NX0 1zB0 NX0|38e6'
     // ]);
