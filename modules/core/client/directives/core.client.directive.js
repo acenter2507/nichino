@@ -5,16 +5,16 @@
     .directive('a', preventClickDirective)
     .directive('a', asideMenuToggleDirective)
     .directive('body', asideMenuHideDirective);
-    // .directive('a', blockExpandDirective)
-    // .directive('a', selectInListDirective)
-    // .directive('button', toggleLeftSideDirective)
-    // .directive('convertToNumber', convertToNumber)
-    // .directive('imagePreview', imagePreviewDirective)
-    // .directive('scrollTopSpy', scrollTopSpyDirective)
-    // .directive('scrollSmart', scrollSmartDirective)
-    // .directive('scrollSmartItem', scrollSmartItemDirective)
-    // .directive('a', insideClickableDirective)
-    // .directive('button', insideClickableDirective);
+  // .directive('a', blockExpandDirective)
+  // .directive('a', selectInListDirective)
+  // .directive('button', toggleLeftSideDirective)
+  // .directive('convertToNumber', convertToNumber)
+  // .directive('imagePreview', imagePreviewDirective)
+  // .directive('scrollTopSpy', scrollTopSpyDirective)
+  // .directive('scrollSmart', scrollSmartDirective)
+  // .directive('scrollSmartItem', scrollSmartItemDirective)
+  // .directive('a', insideClickableDirective)
+  // .directive('button', insideClickableDirective);
 
   function preventClickDirective() {
     var directive = {

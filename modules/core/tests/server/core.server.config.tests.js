@@ -167,11 +167,9 @@ describe('Configuration Tests:', function () {
 
       var admin = new User(userSeedConfig.docs[0].data);
       admin.email = 'temp-admin@localhost.com';
-      admin.provider = 'local';
 
       var user = new User(userSeedConfig.docs[1].data);
       user.email = 'temp-user@localhost.com';
-      user.provider = 'local';
 
       admin.save()
         .then(function () {
@@ -407,7 +405,6 @@ describe('Configuration Tests:', function () {
 
     it('should NOT overwrite existing user with custom options', function (done) {
       var user = new User(_user);
-      user.provider = 'local';
       user.email = 'temp-test-user@localhost.com';
 
       user.save()

@@ -65,13 +65,6 @@ module.exports = {
     }
   },
   shared: {
-    owasp: {
-      allowPassphrases: true,
-      maxLength: 128,
-      minLength: 10,
-      minPhraseLength: 20,
-      minOptionalTestsToPass: 4
-    }
   }
 
 };

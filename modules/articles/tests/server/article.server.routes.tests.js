@@ -44,8 +44,7 @@ describe('Article CRUD tests', function () {
       displayName: 'Full Name',
       email: 'test@test.com',
       username: credentials.usernameOrEmail,
-      password: credentials.password,
-      provider: 'local'
+      password: credentials.password
     });
 
     // Save a user to the test db and create new article
@@ -230,7 +229,6 @@ describe('Article CRUD tests', function () {
       email: 'orphan@test.com',
       username: _creds.usernameOrEmail,
       password: _creds.password,
-      provider: 'local',
       roles: ['admin']
     });
 
@@ -339,7 +337,6 @@ describe('Article CRUD tests', function () {
       email: 'temp@test.com',
       username: _creds.usernameOrEmail,
       password: _creds.password,
-      provider: 'local',
       roles: ['admin', 'user']
     });
 
