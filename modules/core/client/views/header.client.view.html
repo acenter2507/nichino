@@ -21,16 +21,12 @@
       <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
     </li>
   </ul>
-  <ul class="nav navbar-nav navbar-right" ng-hide="isLogged">
-    <li ui-sref-active="active">
-      <a ui-sref="authentication.signup">Sign Up</a>
-    </li>
-    <li class="divider-vertical"></li>
+  <ul class="nav navbar-nav d-sm-down-none navbar-right" ng-hide="isLogged">
     <li ui-sref-active="active">
       <a ui-sref="authentication.signin">Sign In</a>
     </li>
   </ul>
-  <ul class="nav navbar-nav navbar-right" ng-show="isLogged">
+  <ul class="nav navbar-nav d-sm-down-none navbar-right" ng-show="isLogged">
     <li class="dropdown" uib-dropdown>
       <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
         <!-- <img ng-src="{{vm.authentication.user.profileImageURL}}" alt="{{vm.authentication.user.displayName}}" class="header-profile-image"
