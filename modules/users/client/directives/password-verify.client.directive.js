@@ -8,9 +8,7 @@
   function passwordVerify() {
     var directive = {
       require: 'ngModel',
-      scope: {
-        passwordVerify: '='
-      },
+      scope: { passwordVerify: '=' },
       link: link
     };
 

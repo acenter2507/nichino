@@ -76,9 +76,9 @@ function AppController($scope, $state, $stateParams, Authentication) {
   //     notify: true
   //   });
   // };
-  // $scope.handleBackScreen = function (state) {
-  //   $state.go($state.previous.state.name || state, ($state.previous.state.name) ? $state.previous.params : {});
-  // };
+  $scope.handleBackScreen = function (state) {
+    $state.go($state.previous.state.name || state, ($state.previous.state.name) ? $state.previous.params : {});
+  };
   // // Hiển thị thông báo bình thường
   // $scope.handleShowToast = function (msg, error) {
   //   if (error)

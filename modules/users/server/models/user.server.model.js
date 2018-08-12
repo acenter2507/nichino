@@ -43,9 +43,12 @@ var UserSchema = new Schema({
   postNumber: { type: String },
   address: { type: String, trim: true },
   // Security info
-  email: { type: String, lowercase: true, trim: true, default: '' },
+  email: {
+    type: String, lowercase: true, trim: true, default: '',
+    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+  },
   username: { type: String, unique: 'ユーさーIDは既存しています！', lowercase: true, trim: true },
-  deviceId: { type: String, unique: 'デバイスが既存しています！'},
+  deviceId: { type: String, unique: 'デバイスが既存しています！' },
   password: { type: String, default: '' },
   salt: { type: String },
   // System info
@@ -55,8 +58,7 @@ var UserSchema = new Schema({
       enum: ['user', 'manager', 'admin']
     }],
     default: ['user'],
-    required: true,
-    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+    required: true
   },
   updated: { type: Date },
   created: { type: Date, default: Date.now },
@@ -64,7 +66,7 @@ var UserSchema = new Schema({
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
   // Log
-  logins: [ { type: Date } ]
+  logins: [{ type: Date }]
 });
 UserSchema.plugin(paginate);
 

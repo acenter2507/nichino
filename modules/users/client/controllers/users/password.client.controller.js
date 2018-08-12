@@ -13,7 +13,6 @@
     vm.resetUserPassword = resetUserPassword;
     vm.askForPasswordReset = askForPasswordReset;
     vm.authentication = Authentication;
-    vm.getPopoverMsg = PasswordValidator.getPopoverMsg;
 
     // If user is signed in then redirect back home
     if (vm.authentication.user) {

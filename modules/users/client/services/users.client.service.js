@@ -10,36 +10,12 @@
 
   function UsersService($resource) {
     var Users = $resource('/api/users', {}, {
-      update: {
-        method: 'PUT'
-      },
-      updatePassword: {
-        method: 'POST',
-        url: '/api/users/password'
-      },
-      deleteProvider: {
-        method: 'DELETE',
-        url: '/api/users/accounts',
-        params: {
-          provider: '@provider'
-        }
-      },
-      sendPasswordResetToken: {
-        method: 'POST',
-        url: '/api/auth/forgot'
-      },
-      resetPasswordWithToken: {
-        method: 'POST',
-        url: '/api/auth/reset/:token'
-      },
-      signup: {
-        method: 'POST',
-        url: '/api/auth/signup'
-      },
-      signin: {
-        method: 'POST',
-        url: '/api/auth/signin'
-      }
+      update: { method: 'PUT' },
+      updatePassword: { method: 'POST', url: '/api/users/password' },
+      sendPasswordResetToken: { method: 'POST', url: '/api/auth/forgot' },
+      resetPasswordWithToken: { method: 'POST', url: '/api/auth/reset/:token' },
+      signin: { method: 'POST', url: '/api/auth/signin' }
+      // signup: { method: 'POST', url: '/api/auth/signup' }
     });
 
     angular.extend(Users, {
@@ -78,9 +54,7 @@
   AdminService.$inject = ['$resource'];
 
   function AdminService($resource) {
-    return $resource('/api/users/:userId', {
-      userId: '@_id'
-    }, {
+    return $resource('/api/users/:userId', { userId: '@_id' }, {
       update: {
         method: 'PUT'
       }
