@@ -47,8 +47,8 @@ var UserSchema = new Schema({
     type: String, lowercase: true, trim: true, default: '',
     validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
-  username: { type: String, unique: 'ユーさーIDは既存しています！', lowercase: true, trim: true },
-  deviceId: { type: String, unique: 'デバイスが既存しています！' },
+  username: { type: String, lowercase: true, trim: true },
+  deviceId: [{ type: String }],
   password: { type: String, default: '' },
   salt: { type: String },
   // System info
