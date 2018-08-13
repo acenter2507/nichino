@@ -29,6 +29,7 @@ var mongoose = require('mongoose'),
 //   );
 // };
 var validateLocalStrategyEmail = function (email) {
+  if (!email.length) return true;
   return validator.isEmail(email);
 };
 

@@ -14,33 +14,29 @@ function start(seedConfig) {
     var options = seedConfig.options || (config.seedDB ? _.clone(config.seedDB.options, true) : {});
     var collections = seedConfig.collections || (config.seedDB ? _.clone(config.seedDB.collections, true) : []);
 
-    if (!collections.length) {
-      return resolve();
-    }
+    if (!collections.length) return resolve();
 
-    var seeds = collections
-      .filter(function (collection) {
-        return collection.model;
-      });
+    var models = collections.filter(function (collection) {
+      return collection.model;
+    });
 
     // Use the reduction pattern to ensure we process seeding in desired order.
-    seeds.reduce(function (p, item) {
+    models.reduce(function (p, item) {
       return p.then(function () {
-        return seed(item, options);
+        console.log(item);
+        // return seed(item, options);
       });
     }, Promise.resolve()) // start with resolved promise for initial previous (p) item
       .then(onSuccessComplete)
       .catch(onError);
 
     // Local Promise handlers
-
     function onSuccessComplete() {
       if (options.logResults) {
         console.log();
         console.log(chalk.bold.green('Database Seeding: Mongo Seed complete!'));
         console.log();
       }
-
       return resolve();
     }
 
@@ -51,7 +47,6 @@ function start(seedConfig) {
         console.log(chalk.bold.red('Database Seeding: ' + err));
         console.log();
       }
-
       return reject(err);
     }
 

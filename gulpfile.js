@@ -388,13 +388,8 @@ gulp.task('mongo-seed', function (done) {
   // Open mongoose database connection
   db.connect(function () {
     db.loadModels();
-
     seed
-      .start({
-        options: {
-          logResults: true
-        }
-      })
+      .start({ options: { logResults: true } })
       .then(function () {
         // Disconnect and finish task
         db.disconnect(done);
@@ -404,7 +399,6 @@ gulp.task('mongo-seed', function (done) {
           if (disconnectError) {
             console.log('Error disconnecting from the database, but was preceded by a Mongo Seed error.');
           }
-
           // Finish task with error
           done(err);
         });
