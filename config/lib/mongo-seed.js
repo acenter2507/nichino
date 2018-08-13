@@ -23,8 +23,7 @@ function start(seedConfig) {
     // Use the reduction pattern to ensure we process seeding in desired order.
     models.reduce(function (p, item) {
       return p.then(function () {
-        console.log(item);
-        // return seed(item, options);
+        return seed(item, options);
       });
     }, Promise.resolve()) // start with resolved promise for initial previous (p) item
       .then(onSuccessComplete)
@@ -63,13 +62,11 @@ function seed(collection, options) {
 
     var skipWhen = collection.skip ? collection.skip.when : null;
 
-    if (!Model.seed) {
+    if (!Model.seed)
       return reject(new Error('Database Seeding: Invalid Model Configuration - ' + collection.model + '.seed() not implemented'));
-    }
 
-    if (!docs || !docs.length) {
+    if (!docs || !docs.length)
       return resolve();
-    }
 
     // First check if we should skip this collection
     // based on the collection's "skip.when" option.
@@ -93,14 +90,8 @@ function seed(collection, options) {
         Model
           .find(skipWhen)
           .exec(function (err, results) {
-            if (err) {
-              return reject(err);
-            }
-
-            if (results && results.length) {
-              return resolve(true);
-            }
-
+            if (err) return reject(err);
+            if (results && results.length) return resolve(true);
             return resolve(false);
           });
       });
@@ -108,17 +99,14 @@ function seed(collection, options) {
 
     function seedDocuments(skipCollection) {
       return new Promise(function (resolve, reject) {
-
-        if (skipCollection) {
+        if (skipCollection)
           return onComplete([{ message: chalk.yellow('Database Seeding: ' + collection.model + ' collection skipped') }]);
-        }
 
         var workload = docs
-          .filter(function (doc) {
-            return doc.data;
-          })
+          .filter(function (doc) { return doc.data; })
           .map(function (doc) {
-            return Model.seed(doc.data, { overwrite: doc.overwrite });
+            console.log(doc.data);
+            //return Model.seed(doc.data, { overwrite: doc.overwrite });
           });
 
         Promise.all(workload)
