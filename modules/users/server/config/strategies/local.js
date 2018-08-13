@@ -18,6 +18,7 @@ module.exports = function () {
         ]
       }, function (err, user) {
         if (err) return done(err);
+        console.log(user);
         if (!user || !user.authenticate(password))
           return done(null, false, { message: 'ユーザー名かパスワードが違います！' });
         return done(null, user);
