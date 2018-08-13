@@ -3,9 +3,9 @@
     <form name="vm.userForm" ng-submit="vm.signin(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
         <div class="form-group" show-errors>
-          <label for="username">ユーザーID</label>
-          <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" placeholder="ユーザーID" required autofocus>
-          <div ng-messages="vm.userForm.username.$error" role="alert">
+          <label for="usernameOrEmail">ユーザーID</label>
+          <input type="text" id="usernameOrEmail" name="usernameOrEmail" class="form-control" ng-model="vm.credentials.usernameOrEmail" placeholder="ユーザーID" required autofocus>
+          <div ng-messages="vm.userForm.usernameOrEmail.$error" role="alert">
             <p class="help-block error-text" ng-message="required">ユーザーIDを入力してください！</p>
           </div>
         </div>
