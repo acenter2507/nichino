@@ -64,6 +64,7 @@ exports.signup = function (req, res) {
   });
 };
 exports.signin = function (req, res, next) {
+  console.log('req.body', req.body);
   passport.authenticate('local', function (err, user, info) {
     console.log('err', err);
     console.log('user', user);

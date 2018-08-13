@@ -49,15 +49,13 @@
         url: '/signup',
         templateUrl: '/modules/users/client/views/users/signup.client.view.html',
         controller: 'AuthenticationController',
-        controllerAs: 'vm',
-        data: { pageTitle: 'Signup' }
+        controllerAs: 'vm'
       })
       .state('authentication.signin', {
         url: '/signin?err',
         templateUrl: '/modules/users/client/views/users/signin.client.view.html',
         controller: 'AuthenticationController',
-        controllerAs: 'vm',
-        data: { pageTitle: 'Signin' }
+        controllerAs: 'vm'
       })
       .state('password', {
         abstract: true,
