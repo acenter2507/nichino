@@ -106,6 +106,7 @@ function seed(collection, options) {
           .filter(function (doc) { return doc.data; })
           .map(function (doc) {
             console.log(doc.data);
+            return resolve({});
             //return Model.seed(doc.data, { overwrite: doc.overwrite });
           });
 
