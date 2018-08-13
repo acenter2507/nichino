@@ -125,43 +125,24 @@ function seed(doc, options) {
 
     function skipDocument() {
       return new Promise(function (resolve, reject) {
-        User
-          .findOne({
-            username: doc.username
-          })
-          .exec(function (err, existing) {
-            if (err) {
-              return reject(err);
-            }
+        User.findOne({ username: doc.username }).exec(function (err, user) {
+          if (err) return reject(err);
+          if (!user) return resolve(false);
+          if (user && !options.overwrite) return resolve(true);
 
-            if (!existing) {
-              return resolve(false);
-            }
-
-            if (existing && !options.overwrite) {
-              return resolve(true);
-            }
-
-            // Remove User (overwrite)
-
-            existing.remove(function (err) {
-              if (err) {
-                return reject(err);
-              }
-
-              return resolve(false);
-            });
+          // Remove User (overwrite)
+          user.remove(function (err) {
+            if (err) return reject(err);
+            return resolve(false);
           });
+        });
       });
     }
 
     function add(skip) {
       return new Promise(function (resolve, reject) {
-        if (skip) {
-          return resolve({
-            message: chalk.yellow('ユーザー情報作成: User\t\t' + doc.username + ' skipped')
-          });
-        }
+        if (skip)
+          return resolve({ message: chalk.yellow('ユーザー情報作成: User\t\t' + doc.username + ' skipped') });
 
         User.generateRandomPassphrase()
           .then(function (passphrase) {
@@ -169,14 +150,15 @@ function seed(doc, options) {
             user.displayName = user.firstName + ' ' + user.lastName;
             user.password = passphrase;
 
-            user.save(function (err) {
-              if (err) return reject(err);
-              return resolve({ message: 'ユーザーID： ' + user.username + ' ・パスワード： ' + passphrase });
-            });
+            console.log(user);
+            return resolve({ message: 'ユーザーID： ' + user.username + ' ・パスワード： ' + passphrase });
+
+            // user.save(function (err) {
+            //   if (err) return reject(err);
+            //   return resolve({ message: 'ユーザーID： ' + user.username + ' ・パスワード： ' + passphrase });
+            // });
           })
-          .catch(function (err) {
-            return reject(err);
-          });
+          .catch(function (err) { return reject(err); });
       });
     }
 

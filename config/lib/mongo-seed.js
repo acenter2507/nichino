@@ -105,9 +105,7 @@ function seed(collection, options) {
         var workload = docs
           .filter(function (doc) { return doc.data; })
           .map(function (doc) {
-            console.log(doc.data);
-            return resolve({});
-            //return Model.seed(doc.data, { overwrite: doc.overwrite });
+            return Model.seed(doc.data, { overwrite: doc.overwrite });
           });
 
         Promise.all(workload)
@@ -115,7 +113,6 @@ function seed(collection, options) {
           .catch(onError);
 
         // Local Closures
-
         function onComplete(responses) {
           if (options.logResults) {
             responses.forEach(function (response) {
