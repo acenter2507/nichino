@@ -17,6 +17,7 @@ var _ = require('lodash'),
   crypto = require('crypto'),
   nodemailer = require('nodemailer'),
   async = require('async'),
+  passport = require('passport'),
   validator = require('validator');
 
 var smtpTransport = nodemailer.createTransport(config.mailer.options);
@@ -34,6 +35,51 @@ if (useS3Storage) {
   s3 = new aws.S3();
 }
 
+exports.signup = function (req, res) {
+  delete req.body.roles;
+  // Init user and add missing fields
+  var user = new User(req.body);
+  user.provider = 'local';
+  user.displayName = user.firstName + ' ' + user.lastName;
+
+  // Then save the user
+  user.save(function (err) {
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // Remove sensitive data before login
+      user.password = undefined;
+      user.salt = undefined;
+
+      req.login(user, function (err) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.json(user);
+        }
+      });
+    }
+  });
+};
+exports.signin = function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
+    if (err || !user) return res.status(422).send(info);
+
+    // Remove sensitive data before login
+    user.password = undefined;
+    user.salt = undefined;
+    req.login(user, function (err) {
+      if (err) return res.status(400).send(err);
+      return res.json(user);
+    });
+  })(req, res, next);
+};
+exports.signout = function (req, res) {
+  req.logout();
+  res.redirect('/');
+};
 exports.update = function (req, res) {
   if (!req.user) return res.status(400).send({ message: 'ユーザーがログインしていません！' });
   var user = req.user;
@@ -85,59 +131,6 @@ exports.password = function (req, res) {
 
   });
 
-};
-exports.signup = function (req, res) {
-  // For security measurement we remove the roles from the req.body object
-  delete req.body.roles;
-
-  // Init user and add missing fields
-  var user = new User(req.body);
-  user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
-
-  // Then save the user
-  user.save(function (err) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
-
-      req.login(user, function (err) {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.json(user);
-        }
-      });
-    }
-  });
-};
-exports.signin = function (req, res, next) {
-  passport.authenticate('local', function (err, user, info) {
-    if (err || !user) {
-      res.status(422).send(info);
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
-
-      req.login(user, function (err) {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.json(user);
-        }
-      });
-    }
-  })(req, res, next);
-};
-exports.signout = function (req, res) {
-  req.logout();
-  res.redirect('/');
 };
 exports.forgot = function (req, res, next) {
   async.waterfall([

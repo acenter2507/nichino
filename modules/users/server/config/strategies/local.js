@@ -9,28 +9,18 @@ var passport = require('passport'),
 
 module.exports = function () {
   // Use local strategy
-  passport.use(new LocalStrategy({
-    usernameField: 'usernameOrEmail',
-    passwordField: 'password'
-  },
-  function (usernameOrEmail, password, done) {
-    User.findOne({
-      $or: [{
-        username: usernameOrEmail.toLowerCase()
-      }, {
-        email: usernameOrEmail.toLowerCase()
-      }]
-    }, function (err, user) {
-      if (err) {
-        return done(err);
-      }
-      if (!user || !user.authenticate(password)) {
-        return done(null, false, {
-          message: 'Invalid username or password (' + (new Date()).toLocaleTimeString() + ')'
-        });
-      }
-
-      return done(null, user);
-    });
-  }));
+  passport.use(new LocalStrategy({ usernameField: 'usernameOrEmail', passwordField: 'password' },
+    function (usernameOrEmail, password, done) {
+      User.findOne({
+        $or: [
+          { username: usernameOrEmail.toLowerCase() },
+          { email: usernameOrEmail.toLowerCase() }
+        ]
+      }, function (err, user) {
+        if (err) return done(err);
+        if (!user || !user.authenticate(password))
+          return done(null, false, { message: 'ユーザー名かパスワードが違います！' });
+        return done(null, user);
+      });
+    }));
 };

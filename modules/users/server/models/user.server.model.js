@@ -149,7 +149,6 @@ function seed(doc, options) {
             var user = new User(doc);
             user.displayName = user.firstName + ' ' + user.lastName;
             user.password = passphrase;
-            chalk.yellow('Save user: ' + user.displayName);
             user.save(function (err) {
               if (err) return reject(err);
               return resolve({ message: 'ユーザーID： ' + user.username + ' ・パスワード： ' + passphrase });
