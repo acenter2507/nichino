@@ -1,37 +1,88 @@
-<section>
-  <div class="page-header">
-    <h1>User <span ng-bind="vm.user.username"></span></h1>
-  </div>
-  <div class="col-md-12">
-    <form name="vm.userForm" ng-submit="vm.update(vm.userForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label for="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="First Name" required autofocus />
-          <div ng-messages="vm.userForm.firstName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">First name is required.</p>
+<div ng-include="'/modules/core/client/views/breakcum.client.view.html'"></div>
+<!-- /. breakcum  -->
+<div id="page-inner">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="add-job_container">
+        <form name="vm.userForm" ng-submit="vm.update(vm.userForm.$valid)" novalidate>
+          <div class="job-box">
+            <div class="job-box-filter">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+                  <h4>
+                    <i class="fa fa-file" aria-hidden="true"></i>情報</h4>
+                </div>
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix">
+              <div class="col-sm-12 form-group" show-errors>
+                <label for="username">ユーザー名</label>
+                <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" placeholder="ユーザー名" required
+                  autofocus />
+                <div ng-messages="vm.userForm.username.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">*</p>
+                </div>
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix">
+              <div class="col-sm-12 form-group" show-errors>
+                <label for="password">パスワード</label>
+                <input type="password" id="password" name="password" class="form-control" ng-model="vm.store.manager.password" placeholder="パスワード"
+                  autocomplete="off">
+                <div ng-messages="vm.storeForm.password.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">*</p>
+                  <div ng-repeat="passwordError in passwordErrors">
+                    <p class="help-block error-text" ng-show="vm.storeForm.password.$error.requirements">{{passwordError}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix">
+              <div class="col-sm-12 form-group" show-errors>
+                <label for="email">メール</label>
+                <input type="text" id="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="メール" required autofocus
+                />
+                <div ng-messages="vm.userForm.email.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">*</p>
+                </div>
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix">
+              <div class="col-sm-12 form-group" show-errors>
+                <label for="name">氏名</label>
+                <input type="text" id="name" name="name" class="form-control" ng-model="vm.user.name" placeholder="氏名"
+                  required autofocus />
+                <div ng-messages="vm.userForm.name.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">*</p>
+                </div>
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix">
+              <div class="col-sm-12 form-group" show-errors>
+                <label class="control-label" for="roles">権限</label>
+                <div class="controls">
+                  <input class="form-control" type="text" name="roles" ng-model="vm.user.roles" id="roles" ng-list required />
+                  <div ng-messages="vm.userForm.roles.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">*</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
-        </div>
-        <div class="form-group" show-errors>
-          <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name" required />
-          <div ng-messages="vm.userForm.lastName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Last name is required.</p>
-          </div>
-        </div>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="roles">Roles</label>
-          <div class="controls">
-            <input class="form-control" type="text" name="roles" ng-model="vm.user.roles" id="roles" ng-list required />
-            <div ng-messages="vm.userForm.roles.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">At least one role is required.</p>
+          <!-- / General Information -->
+          <div class="row no-ext-mrg">
+            <div class="col-sm-12">
+              <button type="submit" class="btn button submit">
+                保存
+                <i class="fa fa-arrow-circle-right"></i>
+              </button>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <input type="submit" value="Update" class="btn btn-default">
-        </div>
-      </fieldset>
-    </form>
+        </form>
+      </div>
+    </div>
   </div>
-</section>
+  <!-- /. ROW  -->
+</div>
+<!-- /. PAGE INNER  -->

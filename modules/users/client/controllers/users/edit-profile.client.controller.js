@@ -23,14 +23,14 @@
       }
 
       var user = new UsersService(vm.user);
-
-      user.$update(function (response) {
+      console.log(user);
+      user.$updateProfile(function (response) {
         $scope.$broadcast('show-errors-reset', 'vm.userForm');
 
-        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Edit profile successful!' });
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> このアカウントの保存が完了しました。' });
         Authentication.user = response;
       }, function (response) {
-        Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Edit profile failed!' });
+        Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> このアカウントの保存が失敗しました。' });
       });
     }
   }

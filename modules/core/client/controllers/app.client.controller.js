@@ -2,9 +2,9 @@
 
 angular.module('core').controller('AppController', AppController);
 
-AppController.$inject = ['$scope', '$state', '$stateParams', 'Authentication'];
+AppController.$inject = ['$scope', '$state', '$stateParams', 'Authentication', 'ngDialog'];
 
-function AppController($scope, $state, $stateParams, Authentication) {
+function AppController($scope, $state, $stateParams, Authentication, ngDialog) {
   $scope.Authentication = Authentication;
 
   prepareScopeListener();
@@ -24,6 +24,7 @@ function AppController($scope, $state, $stateParams, Authentication) {
     });
     $scope.$on('$destroy', function () { });
   }
+
   // Init socket
   // function prepareSocketListener() {
   //   if (!Socket.socket) {
@@ -85,25 +86,25 @@ function AppController($scope, $state, $stateParams, Authentication) {
   //     return toastr.error(msg, 'エラー');
   //   return toastr.success(msg, '完了');
   // };
-  // // Hiển thị confirm xác nhận
-  // $scope.handleShowConfirm = function (content, resolve, reject) {
-  //   $scope.dialog = content;
-  //   ngDialog.openConfirm({
-  //     templateUrl: 'confirmTemplate.html',
-  //     scope: $scope,
-  //     showClose: false
-  //   }).then(function (res) {
-  //     delete $scope.dialog;
-  //     if (resolve) {
-  //       resolve(res);
-  //     }
-  //   }, function (res) {
-  //     delete $scope.dialog;
-  //     if (reject) {
-  //       reject(res);
-  //     }
-  //   });
-  // };
+  // Hiển thị confirm xác nhận
+  $scope.handleShowConfirm = function (content, resolve, reject) {
+    $scope.dialog = content;
+    ngDialog.openConfirm({
+      templateUrl: 'confirmTemplate.html',
+      scope: $scope,
+      showClose: false
+    }).then(function (res) {
+      delete $scope.dialog;
+      if (resolve) {
+        resolve(res);
+      }
+    }, function (res) {
+      delete $scope.dialog;
+      if (reject) {
+        reject(res);
+      }
+    });
+  };
   // // Hiển thị Dashboard
   // $scope.handleShowDashboardMenu = function () {
   //   var mDialog = ngDialog.open({
@@ -145,4 +146,8 @@ function AppController($scope, $state, $stateParams, Authentication) {
   // $scope.handleViewDetailUser = function (user) {
   //   return $state.go('profile.view', { userId: user._id });
   // };
+
+  $scope.getPageTitle = function () {
+    return $state.current.data.pageTitle;
+  };
 }

@@ -1,6 +1,8 @@
 {
   "adjoining-classes": false,
   "box-model": false,
+  "ids": false,
+  "order-alphabetical": false,
   "box-sizing": false,
   "floats": false,
   "font-sizes": false,

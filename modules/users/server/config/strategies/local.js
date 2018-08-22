@@ -12,18 +12,17 @@ module.exports = function () {
   passport.use(new LocalStrategy({
     usernameField: 'usernameOrEmail',
     passwordField: 'password'
-  },
-    function (usernameOrEmail, password, done) {
-      User.findOne({
-        $or: [
-          { username: usernameOrEmail.toLowerCase() },
-          { email: usernameOrEmail.toLowerCase() }
-        ]
-      }, function (err, user) {
-        if (err) return done(err);
-        if (!user || !user.authenticate(password))
-          return done(null, false, { message: 'ユーザー名かパスワードが違います！' });
-        return done(null, user);
-      });
-    }));
+  }, function (usernameOrEmail, password, done) {
+    User.findOne({
+      $or: [
+        { username: usernameOrEmail.toLowerCase() },
+        { email: usernameOrEmail.toLowerCase() }
+      ]
+    }, function (err, user) {
+      if (err) return done(err);
+      if (!user || !user.authenticate(password))
+        return done(null, false, { message: 'ユーザー名かパスワードが違います！' });
+      return done(null, user);
+    });
+  }));
 };

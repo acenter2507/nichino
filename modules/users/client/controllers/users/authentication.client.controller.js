@@ -14,7 +14,7 @@
     var vm = this;
     // vm.signup = signup;
     // vm.callOauthProvider = callOauthProvider;
-    //vm.usernameRegex = /^(?=[\w.-]+$)(?!.*[._-]{2})(?!\.)(?!.*\.$).{3,34}$/;
+    // vm.usernameRegex = /^(?=[\w.-]+$)(?!.*[._-]{2})(?!\.)(?!.*\.$).{3,34}$/;
 
 
     vm.signin = function (isValid) {

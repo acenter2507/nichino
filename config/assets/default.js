@@ -8,14 +8,20 @@ module.exports = {
       css: [
         // bower:css
         'public/lib/bootstrap/dist/css/bootstrap.css',
-        'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-        'public/lib/angular-ui-notification/dist/angular-ui-notification.css'
+        'public/lib/font-awesome/css/font-awesome.css',
+        'public/lib/angular-ui-notification/dist/angular-ui-notification.css',
+        'public/lib/dropzone/dist/min/basic.min.css',
+        'public/lib/dropzone/dist/min/dropzone.min.css',
+        'public/lib/ng-dialog/css/ngDialog.min.css',
+        'public/lib/ng-dialog/css/ngDialog-theme-default.min.css',
+        'public/lib/summernote/dist/summernote.css'
         // endbower
       ],
       js: [
         // bower:js
         'public/lib/jquery/dist/jquery.js',
         'public/lib/angular/angular.js',
+        'public/lib/bootstrap/dist/js/bootstrap.js',
         'public/lib/angular-animate/angular-animate.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/ng-file-upload/ng-file-upload.js',
@@ -23,8 +29,18 @@ module.exports = {
         'public/lib/angular-mocks/angular-mocks.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-ui-notification/dist/angular-ui-notification.js',
-        'public/lib/angular-ui-router/release/angular-ui-router.js'
+        'public/lib/angular-ui-router/release/angular-ui-router.js',
+        'public/lib/dropzone/dist/min/dropzone.min.js',
+        'public/lib/ng-dropzone/dist/ng-dropzone.min.js',
+        'public/lib/jquery-slimscroll/jquery.slimscroll.min.js',
+        'public/lib/ng-dialog/js/ngDialog.min.js',
+        'public/lib/summernote/dist/summernote.js',
+        'public/lib/angular-summernote/dist/angular-summernote.min.js',
+        'public/lib/lodash/lodash.js',
         // endbower
+        // custom
+        'public/lib/custom/jquery.metisMenu.js',
+        'public/lib/custom/custom.js',
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

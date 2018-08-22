@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" ng-strict-di ng-controller="AppController">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="ja"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="ja"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="ja"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="ja" class="no-js" ng-strict-di ng-controller="AppController">
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title page-title></title>
   <meta name="description" content="{{description}}">
   <meta name="fragment" content="!">
@@ -19,29 +24,44 @@
   <link href="/manifest.json" rel="manifest">
 
   <!-- Application CSS Files -->
-  {{#each cssFiles}}<link rel="stylesheet" href="/{{this}}">{{/each}}
+  {{#each cssFiles}}
+  <link rel="stylesheet" href="/{{this}}">{{/each}}
 </head>
 
 <body class="ng-cloak">
+  <div id="wrapper">
+    <div ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-inverse navbar-fixed-top"></div>
+    <!-- /. NAV TOP  -->
 
-  <!-- HEADER -->
-  <header ng-include="'/modules/core/client/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-default"></header>
-  
-  <!-- CONTENT PAGE -->
-  <div class="app">
-      <section class="content">
-        <!-- <div ng-include="'/modules/core/client/views/breadcrumb.client.view.html'"></div> -->
-        {{{block "content"}}}
-        <!-- Footer -->
-      </section>
-      <!-- Aside Menu -->
-      <div ng-include="'/modules/core/client/views/aside.client.view.html'"></div>
+    <nav ng-include="'/modules/core/client/views/aside.client.view.html'" class="navbar navbar-side"></nav>
+    <!-- /. NAV SIDE  -->
+
+    <!-- CONTENT PAGE -->
+    <div id="page-wrapper">
+      {{{block "content"}}}
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 1.1
+      </div>
+      <strong>©Copyright 2018
+        <a ui-sref="home">システムタイトル</a>.</strong> All rights reserved.
+    </footer>
+
+    <!-- Modal confirm -->
+    <div ng-include="'/modules/core/client/views/modal-confirm.client.view.html'"></div>
   </div>
-  <!-- #CONTENT PAGE -->
-
+  <!-- /. WRAPPER  -->
   <noscript>
     <style>
-      [ng\:cloak], [ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      [ng\:cloak],
+      [ng-cloak],
+      [x-ng-cloak],
+      .ng-cloak,
+      .x-ng-cloak {
         display: block !important;
       }
     </style>
@@ -60,17 +80,15 @@
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
   <!--Application JavaScript Files-->
-    {{#each jsFiles}}<script type="text/javascript" src="/{{this}}"></script>{{/each}}
-  
+  {{#each jsFiles}}
+  <script type="text/javascript" src="/{{this}}"></script>{{/each}}
+
   <!--owasp config sync-->
   <script type="text/javascript">
     var sharedConfig = {{{ sharedConfig }}};
-  </script>
-
-  {{#if livereload}}
+  </script> {{#if livereload}}
   <!--Livereload script rendered -->
-  <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
-  {{/if}}
+  <script type="text/javascript" src="{{host}}:35729/livereload.js"></script> {{/if}}
 </body>
 
 </html>

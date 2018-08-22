@@ -83,6 +83,7 @@
         item.items.push({
           title: options.title || '',
           state: options.state || '',
+          class: options.class,
           params: options.params || {},
           roles: ((options.roles === null || typeof options.roles === 'undefined') ? item.roles : options.roles),
           position: options.position || 0,

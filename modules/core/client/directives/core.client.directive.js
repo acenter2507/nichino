@@ -2,9 +2,7 @@
   'use strict';
   angular
     .module('core')
-    .directive('a', preventClickDirective)
-    .directive('a', asideMenuToggleDirective)
-    .directive('body', asideMenuHideDirective);
+    .directive('a', preventClickDirective);
   // .directive('a', blockExpandDirective)
   // .directive('a', selectInListDirective)
   // .directive('button', toggleLeftSideDirective)
@@ -29,40 +27,6 @@
           event.preventDefault();
         });
       }
-    }
-  }
-  function asideMenuToggleDirective() {
-    var directive = {
-      restrict: 'E',
-      link: link
-    };
-    return directive;
-
-    function link(scope, element, attrs) {
-      element.on('click', function (e) {
-        if (element.hasClass('aside-menu-toggler')) {
-          angular.element('body').toggleClass('aside-menu-show');
-        }
-      });
-    }
-  }
-  function asideMenuHideDirective() {
-    var directive = {
-      restrict: 'E',
-      link: link
-    };
-    return directive;
-
-    function link(scope, element, attrs) {
-      angular.element(document).bind('mouseup touchend', function (e) {
-        var container = angular.element('#aside-menu');
-        var btn = angular.element('#aside-menu-toggler');
-        if (!container.is(e.target) && container.has(e.target).length === 0 && !btn.is(e.target) && btn.has(e.target).length === 0) {
-          if (element.hasClass('aside-menu-show')) {
-            element.removeClass('aside-menu-show');
-          }
-        }
-      });
     }
   }
   // //Card Collapse

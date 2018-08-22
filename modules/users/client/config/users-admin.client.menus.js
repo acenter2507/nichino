@@ -10,8 +10,9 @@
   // Configuring the Users module
   function menuConfig(menuService) {
     menuService.addSubMenuItem('topbar', 'admin', {
-      title: 'Manage Users',
-      state: 'admin.users'
+      class: 'fa fa-user-circle-o',
+      title: 'アカウント管理',
+      state: 'admin.users.list'
     });
   }
 }());

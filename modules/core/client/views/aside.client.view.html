@@ -1,59 +1,40 @@
-<aside class="aside-menu" id="aside-menu" ng-controller="HeaderController as vm">
-  <h3>Rightside menu</h3>
-  <!-- <div class="aside-profile" ng-if="isLogged">
-    <img class="aside-avatar pull-left" ng-src="{{user.profileImageURL}}" alt="{{user.displayName}}" />
-    <span class="h4-text">{{user.displayName}}</span>
-    <div class="clearfix"></div>
-  </div>
-  <nav class="aside-nav">
-    <ul class="nav">
-      <li class="nav-title" ng-show="isLogged">コミュニケーション</li>
-      <li class="nav-item" ng-show="isLogged">
-        <a class="nav-link" ui-sref-active="active" ui-sref="notifs.list">
-          <i class="fa fa-bell-o"></i> お知らせ
-          <span class="badge" ng-class="{'badge-danger': Notifications.cnt > 0}">{{ Notifications.cnt }}</span>
-        </a>
-      </li>
-      <li class="nav-item" ng-show="isLogged">
-        <a class="nav-link" ui-sref-active="active" ui-sref="messages.list">
-          <i class="fa fa-envelope-o"></i> メッセージ
-          <span class="badge" ng-class="{'badge-success': Messages.cnt > 0}">{{ Messages.cnt }}</span>
-        </a>
-      </li>
-      <li class="nav-title">ナビゲーション</li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="home">
-          <i class="fa fa-newspaper-o"></i> ホーム</a>
-      </li>
-      <li class="nav-item" ng-if="isLeader">
-        <a class="nav-link" ui-sref-active="active" ui-sref="admin.users.list">
-          <i class="fa fa-users"></i> 社員</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="departments.list">
-          <i class="fa fa-sitemap"></i> 部署</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="workmonths.list">
-          <i class="fa fa-calendar"></i> 勤務表</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="workrests.list">
-          <i class="fa fa-calendar-times-o"></i> 休暇</a>
-      </li>
-      <li class="nav-title">プロファイル</li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="settings.profile">プロファイル変更</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="settings.picture">アバター変更</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="settings.password">パスワード変更</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/api/auth/signout" target="_self">ログアウト</a>
-      </li>
-    </ul>
-  </nav> -->
-</aside>
+<!-- /. NAV TOP  -->
+<div class="sidebar-collapse" ng-controller="HeaderController as vm">
+  <ul class="nav" id="main-menu" ng-if="vm.menu.shouldRender(Authentication.user);">
+    <li>
+      <a ui-sref="home">
+        <i class="fa fa-cog" aria-hidden="true"></i>ホーム</a>
+    </li>
+    <!-- <li>
+      <a href="javascript:void(0)">
+        <i class="fa fa-clone" aria-hidden="true"></i>Manage Jobs
+        <span class="fa arrow"></span>
+      </a>
+      <ul class="nav nav-second-level">
+        <li>
+          <a href="active-jobs.html">
+            <i class="active-job fa fa-circle-o-notch" aria-hidden="true"></i>Active Jobs</a>
+        </li>
+        <li>
+          <a href="pending-jobs.html">
+            <i class="pending-job fa fa-circle-o-notch" aria-hidden="true"></i>Pending Jobs</a>
+        </li>
+        <li>
+          <a href="expire-jobs.html">
+            <i class="expire-job fa fa-circle-o-notch" aria-hidden="true"></i>Expired Jobs</a>
+        </li>
+      </ul>
+    </li> -->
+    <li ng-repeat="subitem in vm.menu.items[0].items" ng-if="(Authentication.user);">
+      <a ui-sref="{{subitem.state}}({{subitem.params}})">
+        <i ng-class="subitem.class" aria-hidden="true"></i>{{subitem.title}}
+      </a>
+    </li>
+
+    <li class="log-off" ng-if="(Authentication.user);">
+      <a href="/api/auth/signout" target="_self" >
+        <i class="fa fa-power-off" aria-hidden="true"></i>ログアウト</a>
+    </li>
+  </ul>
+</div>
+<!-- /. NAV SIDE  -->

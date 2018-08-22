@@ -1,0 +1,85 @@
+﻿<div ng-include="'/modules/core/client/views/breakcum.client.view.html'"></div>
+<!-- /. breakcum  -->
+<div id="page-inner">
+  <div class="row mg10b">
+    <div class="col-sm-12 text-right">
+      <a class="btn btn-success" data-ui-sref="admin.stores.create">
+        <span class="glyphicon glyphicon-plus"></span> 登録
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="chat_container">
+      <div class="job-box">
+        <div class="job-box-filter">
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <label>表示:
+                <select ng-model="vm.itemsPerPage" class="form-control input-sm" ng-selected="vm.pageChanged()" ng-options="option for option in vm.itemsPerPageData">
+                </select>
+              </label>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="filter-search-box">
+                <label>キーワード:
+                  <input class="form-control input-sm" type="text" ng-model="vm.search" ng-change="vm.figureOutItemsToDisplay()" />
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <article ng-repeat="store in vm.pagedItems">
+          <div class="brows-job-list">
+            <div class="col-lg-2 col-md-2 col-sm-2 small-padding">
+              <div class="brows-job-company-img">
+                <img ngf-src="store.image ? store.image : '/modules/core/client/img/no-image.jpg'" class="img-responsive" alt="" />
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+              <div class="brows-job-position">
+                <h3 ng-bind="store.name"></h3>
+                <p ng-show="user.zipCode">
+                  <span class="brows-job-status">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span ng-bind="store.zipCode"></span>
+                    <span ng-bind="store.address"></span>
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <div class="brows-job-location">
+                <p>
+                  <i class="fa fa-clock-o" aria-hidden="true"></i>
+                  <span>created: {{store.created | date:'yyyy/MM/dd'}}</span>
+                </p>
+                <p ng-show="user.tel">
+                  <i class="fa fa-phone" aria-hidden="true"></i>
+                  <span>{{store.tel}}</span>
+                </p>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <div class="job-action">
+                <a class="edit" ui-sref="admin.stores.edit({storeId: store._id})" title="Edit">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                <a class="delete" ng-click="vm.remove(store._id)" title="Delete">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+        <!--row Pagination-->
+        <div class="row">
+          <uib-pagination ng-if="vm.itemsPerPage <= vm.filterLength" boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage"
+            ng-change="vm.pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+        </div>
+        <!--./row Pagination-->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /. page-inner  -->

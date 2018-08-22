@@ -1,29 +1,38 @@
-<div>
-  <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
-    <form name="vm.userForm" ng-submit="vm.signin(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label for="usernameOrEmail">ユーザーID</label>
-          <input type="text" id="usernameOrEmail" name="usernameOrEmail" class="form-control" ng-model="vm.credentials.usernameOrEmail" placeholder="ユーザーID" required autofocus>
-          <div ng-messages="vm.userForm.usernameOrEmail.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">ユーザーIDを入力してください！</p>
+<div id="page-inner">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="add-job_container">
+        <div class="job-box">
+
+          <div class="row no-ext-mrg sm-plix">
+            <div class="col-lg-4 col-md-6 col-sm-8 col-sm-offset-2 col-md-offset-3">
+              <div class="log-off-wrap">
+                <form name="vm.userForm" ng-submit="vm.signin(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
+                  <img src="/modules/core/client/img/brand/logo.png" class="img-responsive" alt="">
+                  <div class="form-group" show-errors>
+                    <label for="usernameOrEmail">ユーザーID</label>
+                    <input type="text" id="usernameOrEmail" name="usernameOrEmail" class="form-control" ng-model="vm.credentials.usernameOrEmail"
+                      placeholder="ユーザーID" required autofocus>
+                    <div ng-messages="vm.userForm.usernameOrEmail.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">ユーザーIDを入力してください！</p>
+                    </div>
+                  </div>
+                  <div class="form-group" show-errors>
+                    <label for="password">パスワード</label>
+                    <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="パスワード"
+                      required>
+                    <div ng-messages="vm.userForm.password.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">パスワードを入力してください！</p>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-logoff">ログイン</button>
+                </form>
+              </div>
+            </div>
           </div>
+
         </div>
-        <div class="form-group" show-errors>
-          <label for="password">パスワード</label>
-          <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="パスワード" required>
-          <div ng-messages="vm.userForm.password.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">パスワードを入力してください！</p>
-          </div>
-        </div>
-        <div class="text-center form-group">
-          <button type="submit" class="btn btn-primary">ログイン</button>
-        </div>
-        <div class="text-center forgot-password">
-          <a ui-sref="password.forgot">パスワードを忘れた！</a>
-        </div>
-        <br />
-      </fieldset>
-    </form>
+        <!-- / General Information -->
+      </div>
+    </div>
   </div>
-</div>

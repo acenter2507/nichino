@@ -37,22 +37,24 @@ var validateLocalStrategyEmail = function (email) {
  * User Schema
  */
 var UserSchema = new Schema({
-  // Private info
-  firstName: { type: String, trim: true, default: '' },
-  lastName: { type: String, trim: true, default: '' },
-  displayName: { type: String, trim: true },
-  postNumber: { type: String },
-  address: { type: String, trim: true },
-  // Security info
+  // 氏名
+  name: { type: String, default: '' },
+  // ユーザーID
+  username: { type: String, lowercase: true, trim: true, unique: 'ユーザー名は既に存在します' },
+  // パスワード
+  password: { type: String, default: '' },
+  // 端末リスト
+  devices: [{
+    deviceId: { type: String },
+    logins: [{ type: Date }],
+    description: { type: String }
+  }],
+  // メール
   email: {
     type: String, lowercase: true, trim: true, default: '',
     validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
   },
-  username: { type: String, lowercase: true, trim: true },
-  devices: [{ type: String }],
-  password: { type: String, default: '' },
-  salt: { type: String },
-  // System info
+  // 役割
   roles: {
     type: [{
       type: String,
@@ -61,13 +63,17 @@ var UserSchema = new Schema({
     default: ['user'],
     required: true
   },
+  // 小売店
+  store: { type: Schema.ObjectId, ref: 'Store' },
+  // ログインログ
+  logins: [{ type: Date }],
+  // System info
   updated: { type: Date },
   created: { type: Date, default: Date.now },
+  salt: { type: String },
   // Manager info
   resetPasswordToken: { type: String },
-  resetPasswordExpires: { type: Date },
-  // Log
-  logins: [{ type: Date }]
+  resetPasswordExpires: { type: Date }
 });
 UserSchema.plugin(paginate);
 
@@ -101,8 +107,21 @@ UserSchema.statics.generateRandomPassphrase = function () {
     return resolve(password);
   });
 };
-UserSchema.statics.seed = seed;
+// ユーザーに小売店情報を割り当てる
+UserSchema.statics.setStore = function (userId, storeId) {
+  return new Promise(function (resolve, reject) {
+    return this.findById(userId).exec((err, user) => {
+      // ユーザー情報が見つからない
+      if (err || !user) return reject({ message: 'ユーザー情報が見つかりません！' });
+      // 既に小売店が割り当てされた
+      if (user.store) return reject({ message: '既に小売店が割り当てされました！' });
+      user.store = storeId;
+      return user.save();
+    });
+  });
+};
 
+UserSchema.statics.seed = seed;
 mongoose.model('User', UserSchema);
 
 /**
@@ -147,7 +166,6 @@ function seed(doc, options) {
         User.generateRandomPassphrase()
           .then(function (passphrase) {
             var user = new User(doc);
-            user.displayName = user.firstName + ' ' + user.lastName;
             user.password = passphrase;
             user.save(function (err) {
               if (err) return reject(err);

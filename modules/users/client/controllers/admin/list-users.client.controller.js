@@ -5,22 +5,27 @@
     .module('users.admin')
     .controller('UserListController', UserListController);
 
-  UserListController.$inject = ['$scope', '$filter', 'AdminService'];
+  UserListController.$inject = ['$scope', '$state', '$filter', 'AdminService', 'UsersService', 'Notification'];
 
-  function UserListController($scope, $filter, AdminService) {
+  function UserListController($scope, $state, $filter, AdminService, UsersService, Notification) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
+    vm.itemsPerPageData = [10, 20, 50];
+    vm.itemsPerPage = 10;
+    vm.remove = remove;
+    init();
 
-    AdminService.query(function (data) {
-      vm.users = data;
-      vm.buildPager();
-    });
+    function init() {
+      AdminService.query(function (data) {
+        vm.users = data;
+        vm.buildPager();
+      });
+    }
 
     function buildPager() {
       vm.pagedItems = [];
-      vm.itemsPerPage = 15;
       vm.currentPage = 1;
       vm.figureOutItemsToDisplay();
     }
@@ -36,7 +41,21 @@
     }
 
     function pageChanged() {
-      vm.figureOutItemsToDisplay();
+      if (vm.filteredItems) {
+        vm.figureOutItemsToDisplay();
+      }
+    }
+
+    function remove(_id) {
+      $scope.handleShowConfirm({
+        message: 'このアカウントを削除します。よろしいですか？'
+      }, function () {
+        var user = new AdminService({ _id: _id });
+        user.$remove(function () {
+          init();
+          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> アカウントの削除が完了しました。' });
+        });
+      });
     }
   }
 }());

@@ -10,9 +10,9 @@
     .module(app.applicationModuleName)
     .config(bootstrapConfig);
 
-  bootstrapConfig.$inject = ['$compileProvider', '$locationProvider', '$httpProvider', '$logProvider'];
+  bootstrapConfig.$inject = ['$compileProvider', '$locationProvider', '$httpProvider', '$logProvider', 'dropzoneOpsProvider'];
 
-  function bootstrapConfig($compileProvider, $locationProvider, $httpProvider, $logProvider) {
+  function bootstrapConfig($compileProvider, $locationProvider, $httpProvider, $logProvider, dropzoneOpsProvider) {
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
@@ -24,6 +24,18 @@
     // @link https://docs.angularjs.org/guide/production
     $compileProvider.debugInfoEnabled(app.applicationEnvironment !== 'production');
     $logProvider.debugEnabled(app.applicationEnvironment !== 'production');
+
+    dropzoneOpsProvider.setOptions({
+      autoProcessQueue: false,
+      acceptedFiles: 'image/*',
+      uploadMultiple: true,
+      parallelUploads: 10,
+      url: '/api/receipts',
+      addRemoveLinks: true,
+      dictDefaultMessage: 'クリックすると画像が追加またはドロップされます',
+      dictRemoveFile: '削除',
+      dictResponseError: '画像をアップロードできません。'
+    });
   }
 
 

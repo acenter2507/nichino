@@ -1,21 +1,79 @@
-<section>
-  <div class="page-header">
-    <div class="row">
-      <div class="col-md-4">
-        <h1>Users</h1>
-      </div>
-      <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+<div ng-include="'/modules/core/client/views/breakcum.client.view.html'"></div>
+<!-- /. breakcum  -->
+<div id="page-inner">
+  <div class="row mg10b">
+    <div class="col-sm-12 text-right">
+      <a class="btn btn-success" data-ui-sref="admin.users.create">
+        <span class="glyphicon glyphicon-plus"></span> 登録
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="chat_container">
+      <div class="job-box">
+        <div class="job-box-filter">
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <label>表示:
+                <select ng-model="vm.itemsPerPage" class="form-control input-sm" ng-selected="vm.pageChanged()" ng-options="option for option in vm.itemsPerPageData">
+                </select>
+              </label>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="filter-search-box">
+                <label>キーワード:
+                  <input class="form-control input-sm" type="text" ng-model="vm.search" ng-change="vm.figureOutItemsToDisplay()" />
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <article ng-repeat="user in vm.pagedItems">
+          <div class="brows-job-list">
+            <div class="col-md-5 col-sm-5">
+              <div class="brows-job-position">
+                <h3 ng-bind="user.username"></h3>
+                <p>
+                  <span class="brows-job-status">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                    <span ng-bind="user.roles"></span>
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+              <div class="brows-job-location">
+                <p>
+                  <i class="fa fa-clock-o" aria-hidden="true"></i>
+                  <span>created: {{user.created | date:'yyyy/MM/dd'}}</span>
+                </p>
+                <p ng-show="user.email">
+                  <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                  <span>{{user.email}}</span>
+                </p>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <div class="job-action">
+                <a class="edit" ui-sref="admin.user-edit({userId: user._id})" title="Edit">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                <a class="delete" ng-click="vm.remove(user._id)" title="Delete">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+        <!--row Pagination-->
+        <div class="row">
+          <uib-pagination ng-if="vm.itemsPerPage <= vm.filterLength" boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage"
+            ng-change="vm.pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+        </div>
+        <!--./row Pagination-->
       </div>
     </div>
   </div>
-  <div class="list-group">
-    <a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
-      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
-      <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
-      <p class="list-group-item-text" ng-bind="user.email"></p>
-    </a>
-  </div>
-
-  <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
-</section>
+</div>
+<!-- /. page-inner  -->

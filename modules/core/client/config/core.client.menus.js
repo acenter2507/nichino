@@ -20,17 +20,14 @@
     });
 
     menuService.addSubMenuItem('account', 'settings', {
-      title: 'Edit Profile',
+      class: 'fa fa-user fa-fw',
+      title: 'プロファイル編集',
       state: 'settings.profile'
     });
 
-    // menuService.addSubMenuItem('account', 'settings', {
-    //   title: 'Edit Profile Picture',
-    //   state: 'settings.picture'
-    // });
-
     menuService.addSubMenuItem('account', 'settings', {
-      title: 'Change Password',
+      class: 'fa fa-gear fa-fw',
+      title: 'パスワード変更',
       state: 'settings.password'
     });
   }

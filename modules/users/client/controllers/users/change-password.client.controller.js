@@ -18,11 +18,11 @@
 
       UsersService.changePassword(vm.passwordDetails)
         .then(function (response) {
-          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> パスワードを変更しました！' });
+          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> パスワードを変更しました。' });
           vm.passwordDetails = null;
         })
         .catch(function (response) {
-          Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> パスワード変更が失敗しました!' });
+          Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> パスワード変更が失敗しました。' });
         });
     };
   }

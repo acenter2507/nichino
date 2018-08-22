@@ -62,6 +62,12 @@ module.exports = {
           fileSize: 5 * 1024 * 1024 // Max file size in bytes (5 MB)
         }
       }
+    },
+    stores: {
+      dest: './modules/stores/client/img/uploads/',
+      limits: {
+        fileSize: 5 * 1024 * 1024 // Max file size in bytes (5 MB)
+      }
     }
   },
   shared: {

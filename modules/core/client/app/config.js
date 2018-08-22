@@ -10,7 +10,10 @@
     'ui.router',
     'ui.bootstrap',
     'ngFileUpload',
-    'ui-notification'
+    'ui-notification',
+    'ngDialog',
+    'thatisuday.dropzone',
+    'summernote'
   ];
 
   var service = {

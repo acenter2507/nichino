@@ -27,7 +27,7 @@
         controller: 'EditProfileController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Settings'
+          pageTitle: 'プロファイル編集'
         }
       })
       .state('settings.password', {
@@ -36,7 +36,7 @@
         controller: 'ChangePasswordController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Settings password'
+          pageTitle: 'パスワード変更'
         }
       })
       .state('authentication', {

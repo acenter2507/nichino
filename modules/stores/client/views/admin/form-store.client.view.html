@@ -1,0 +1,137 @@
+<div ng-include="'/modules/core/client/views/breakcum.client.view.html'"></div>
+<!-- /. breakcum  -->
+<div id="page-inner">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="add-job_container">
+        <form name="vm.storeForm" ng-submit="vm.save(vm.storeForm.$valid)" novalidate>
+          <div class="job-box">
+            <div class="job-box-filter">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+                  <h4>
+                    <i class="fa fa-file-text-o" aria-hidden="true"></i>情報</h4>
+                </div>
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix">
+              <div class="col-sm-12 form-group" show-errors>
+                <label for="name">店舗名</label>
+                <input type="text" id="name" name="name" class="form-control" ng-model="vm.store.name" placeholder="Abc's Pharmacy" required
+                  autofocus />
+                <div ng-messages="vm.storeForm.name.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">*</p>
+                </div>
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix">
+              <div class="col-sm-12 form-group">
+                <label>営業時間</label>
+                <input type="text" name="openingHours" class="form-control" ng-model="vm.store.openingHours" placeholder="6:30A.M.～10:30P.M."
+                />
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix">
+              <div class="col-sm-4">
+                <h5>郵便番号</h5>
+                <input type="text" class="form-control" ng-model="vm.store.zipCode" placeholder="170025">
+              </div>
+              <div class="col-sm-4">
+                <h5>住所</h5>
+                <input type="text" class="form-control" ng-model="vm.store.address" placeholder="東京都">
+              </div>
+              <div class="col-sm-4">
+                <h5>TEL</h5>
+                <input type="text" class="form-control" ng-model="vm.store.tel" placeholder="xxxx-xxx-xxxx">
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix">
+              <div class="col-sm-12">
+                <h5>ウェブサイト</h5>
+                <textarea summernote height="300" class="form-control textarea" on-image-upload="imageUpload(files)" editable="editable"
+                  ng-model="vm.store.description" placeholder="店舗について"></textarea>
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix" ng-if="vm.store._id">
+                <div class="col-sm-12">
+                  <label for="name">画像</label>
+                  <fieldset>
+                    <div class="form-group text-center">
+                      <img ng-if="vm.fileSelected || vm.store.image" ngf-src="vm.fileSelected ? picFile : vm.store.image" alt="{{vm.store.name}}"
+                        class="img-thumbnail user-profile-picture" ngf-drop>
+                    </div>
+                    <div ng-show="vm.loading" class="form-group text-center">
+                      <img ng-src="/modules/core/client/img/loaders/loader.gif" height="50" width="50" alt="Loading image...">
+                    </div>
+                    <div ng-show="!vm.fileSelected" class="text-center form-group">
+                      <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="picFile"
+                        accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400">画像選択</button>
+                    </div>
+                    <div ng-show="vm.fileSelected" class="text-center form-group">
+                      <button type="button" class="btn btn-primary" ng-click="vm.upload(picFile)">この画像を使用する</button>
+                      <button type="button" class="btn btn-default" ng-click="vm.fileSelected = false">キャンセル</button>
+                    </div>
+                    <div ng-show="vm.fileSelected" class="progress text-center">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width:(vm.progress)+'%'}"
+                        ng-bind="vm.progress + '%'">
+                        <span class="sr-only">{{vm.progress}}% コンプリート</span>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+          </div>
+          <!-- / Full Detail -->
+
+          <div class="job-box">
+            <div class="job-box-filter">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+                  <h4>
+                    <i class="fa fa-user" aria-hidden="true"></i>ユーザー</h4>
+                </div>
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix">
+              <div class="col-sm-12 form-group" show-errors>
+                <label for="username">ユーザー名</label>
+                <input type="text" id="username" name="username" class="form-control" ng-model="vm.store.account.username" placeholder="ユーザー名"
+                  autocomplete="off" required/>
+                <div ng-messages="vm.storeForm.username.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">*</p>
+                </div>
+              </div>
+            </div>
+            <div class="row no-ext-mrg sm-plix">
+              <div class="col-sm-12 form-group" show-errors>
+                <label for="password">パスワード</label>
+                <input type="password" id="password" name="password" class="form-control" ng-model="vm.store.account.password" placeholder="パスワード"
+                  autocomplete="off">
+                <div ng-messages="vm.storeForm.password.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">*</p>
+                  <div ng-repeat="passwordError in passwordErrors">
+                    <p class="help-block error-text" ng-show="vm.storeForm.password.$error.requirements">{{passwordError}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- / User Information -->
+
+          <div class="row no-ext-mrg">
+            <div class="col-sm-12">
+              <button type="submit" class="btn button submit">
+                保存
+                <i class="fa fa-arrow-circle-right"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+  <!-- /. ROW  -->
+</div>
+<!-- /. PAGE INNER  -->

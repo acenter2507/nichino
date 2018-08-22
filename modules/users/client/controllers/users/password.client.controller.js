@@ -28,9 +28,9 @@
         return false;
       }
 
-      UsersService.requestPasswordReset(vm.credentials)
-        .then(onRequestPasswordResetSuccess)
-        .catch(onRequestPasswordResetError);
+      // UsersService.requestPasswordReset(vm.credentials)
+      //   .then(onRequestPasswordResetSuccess)
+      //   .catch(onRequestPasswordResetError);
     }
 
     // Change user password
